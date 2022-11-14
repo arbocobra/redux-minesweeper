@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import gridReducer from './features/gridSlice';
+import cellReducer from './features/cellSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    grid: gridReducer,
+    cells: cellReducer
   },
 });

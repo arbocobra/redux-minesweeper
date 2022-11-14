@@ -1,0 +1,68 @@
+h1 {
+    font-size: 24px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.app {
+    width: 100%;
+    height: 100vh;
+}
+.container {
+    display: flex;
+    flex-flow: column nowrap;
+    height: 90%;
+    width: 90%;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+.createGrid-container {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 60%;
+    height: 50%;
+    border: 2px solid black;
+    justify-content: stretch;
+}
+.createGrid-inner, .grid-title, .grid-size, .grid-difficulty, .grid-submit {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    flex: 3;
+}
+.grid-title, .grid-submit {
+    flex: 2;
+}
+.counter, .select-level {
+    display: flex;
+    flex-flow: row nowrap;
+    font-size: 24px;
+    padding: 10px;
+}
+.level, .submit-button {
+    border: 1px solid black;
+    margin: 0 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.level:hover, .submit-button:hover {
+    border: 1px solid black;
+    background: black;
+    color: white;
+}
+.level.selected {
+    border: 2px solid black;
+    padding: 4px 9px;
+}
+.size {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.explanation {
+    font-style: italic;
+    font-size: 14px;
+    line-height: 15px;
+    padding: 5px 0 10px;
+    height: 30px;
+}
+
+/* red: #FF002D */
