@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createGrid } from '../features/gridSlice';
 
 export const CreateGrid = (props) => {
-    // const setGrid = props;
+    const {setGameState} = props;
 
 const [gridSize, setGridSize] = useState(10);
 const [gridLevel, setGridLevel] = useState(null);
@@ -33,9 +33,9 @@ const decrement = (num) => {
 }
 
 const handleSubmit = () => {
-    console.log({size: gridSize, level: gridLevel})
+    // console.log({size: gridSize, level: gridLevel})
     dispatch(createGrid({size: gridSize, level: gridLevel}))
-    props.setGrid(true);
+    setGameState('play');
 }
 
     return (

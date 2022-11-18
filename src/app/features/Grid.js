@@ -5,15 +5,16 @@ import { Cells } from './Cells';
 import { useSelector } from 'react-redux';
 import { styleGrid } from '../components/componentStyles';
 
-export const Grid = () => {
+export const Grid = (props) => {
+    const {setGameState} = props;
     const grid = useSelector(selectGrid);
-    const square = grid.size;
+    const size = grid.size;
 
-    const gridStyle = styleGrid(square);
+    const gridStyle = styleGrid(size);
 
     return (
         <div id='grid' className='grid-container' style={gridStyle}>
-            <Cells size={grid.size} mines={grid.mines} />
+            <Cells size={grid.size} mines={grid.mines} setGameState={setGameState} />
         </div>
     )
 

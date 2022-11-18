@@ -9,12 +9,16 @@ h1 {
 .container {
     display: flex;
     flex-flow: column nowrap;
-    height: 90%;
-    width: 90%;
+    height: 100%;
+    width: 100%;
     margin: auto;
     justify-content: center;
     align-items: center;
 }
+/* .container-inner {
+    max-height: 95%;
+    max-width: 95%;
+} */
 .createGrid-container {
     display: flex;
     flex-flow: column nowrap;
@@ -63,6 +67,34 @@ h1 {
     line-height: 15px;
     padding: 5px 0 10px;
     height: 30px;
+}
+.grid-container {
+    display: grid;
+    grid-gap: 1px;
+    place-items: stretch;
+    min-height: 400px;
+    min-width: 400px;
+    background-color: #d0d0d0;
+    border: 1px #d0d0d0 solid;
+}
+.cell {
+    min-width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1;
+    background-color: #f4f4f4;
+    /* color: #f4f4f4; */
+}
+.cell:hover {
+    background-color: #e0e0e0;
+    /* color: #333333; */
+}
+.cell.flagged {
+    background-color: #FF002D;
+}
+.open {
+    background-color: #e0e0e0 !important;
 }
 
 /* red: #FF002D */

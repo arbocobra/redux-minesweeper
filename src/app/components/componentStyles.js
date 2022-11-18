@@ -1,14 +1,26 @@
 export const styleGrid = (i) => {
     return {
-        display: 'grid',
-        gridTemplateColumns: `repeat(${i - 1}, 1fr)`,
-        gridTemplateRows: `repeat(${i - 1}, 1fr)`,
-        gridGap: '1px',
-        justifyItems: 'stretch',
-        width: '100%',
-        height: '100%'
+        gridTemplateColumns: `repeat(${i}, 1fr)`,
+        gridTemplateRows: `repeat(${i}, 1fr)`,
     }
 }
 
+export const styleCell = (row, column, minedNeighbourCount) => {    
+    return {
+        gridArea: `${row + 1} / ${column + 1} / ${row + 2} / ${column + 2}`,
+    }
+}
 
-
+export const styleSpan = (minedNeighbourCount) => {
+    let countColor = ['blue', 'green', 'red', 'dark-blue', 'maroon', 'teal', 'grey', 'black']
+    // let displayNum = 'inherit';
+    if (minedNeighbourCount === 0) {
+        return {
+            display: 'none',
+        }
+    } else {
+        return {
+            color: `${countColor[minedNeighbourCount - 1]}`,
+        }
+    }
+}
