@@ -200,30 +200,39 @@ export const findNeighbours = async (responseArray) => {
     const isChecked = [];
     for (let i = 0; i < data.length; i++) {
         const id = data[i].id;
+        // console.log('id: ' + id + '/ size: ' + size)
         const row = data[i].row;
         const column = data[i].column;
         const neighbours = [];
         if (row > 0) {
             if (column > 0) {
-                neighbours.push(id - (size - 1));
+                // console.log(id - (size + 1))
+                neighbours.push(id - (size + 1));
             }
+            // console.log(id - size)
             neighbours.push(id - size);
             if (column < (size - 1)) {
-                neighbours.push(id - (size + 1));
+                // console.log(id - (size - 1))
+                neighbours.push(id - (size - 1));
             }
         }
         if (column > 0) {
+            // console.log(id - 1)
             neighbours.push(id - 1);
         }
         if (column < (size - 1)) {
+            // console.log(id + 1)
             neighbours.push(id + 1);
         }
         if (row < (size - 1)) {
             if (column > 0) {
+                // console.log(id + (size - 1))
                 neighbours.push(id + (size - 1));
             }
+            // console.log(id + size)
             neighbours.push(id + size);
             if (column < (size - 1)) {
+                // console.log(id + (size + 1))
                 neighbours.push(id + (size + 1));
             }
         } 

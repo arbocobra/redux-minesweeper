@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { useSelector, dispatch, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { toggleFlag, openCell, selectCells } from '../features/cellSlice';
 import { styleCell, styleSpan } from './componentStyles';
 // import cellClick from './cellClick';
@@ -12,7 +12,7 @@ export const Cell = (props) => {
 
     const cells = useSelector(selectCells);
     
-    const {cell, mines, setGameState} = props;
+    const {cell, mines, setGameState, testPropPass} = props;
     const {column, flagged, id, mined, minedNeighbourCount, neighbours, opened, row } = cell;
     const [cellContent, setCellContent] = useState('');
     const [flagCount, setFlagCount] = useState(0);
@@ -33,18 +33,30 @@ export const Cell = (props) => {
     const cellStyle = styleCell(row, column);
     const spanStyle = styleSpan(minedNeighbourCount);
 
-    // const handleClick = (event) => {
-    //     dispatch(toggleFlag(id));
-    //     changeCell(event.which)
-    //     // cellClick(cell, setGameState, event)
-    // }
+    const handleClick = (event) => {
+        let div = event.target;
+        if (event.which === 1) {
+            clickCell('left', div)
+        } else if (event.which === 3) {
+            clickCell('right', div)
+        }
+    }
+
+    const flag = () => {
+        dispatch(toggleFlag(id))
+    }
+    const open = () => {
+        dispatch(openCell(id))
+    }
 
     // Click actions
-    const handleClick = (event) => {
+    const clickCell = (click, div) => {
+        console.log('click ' + id)
+        // console.log(neighbours)
         // - left click - changes cell state.opened = true
-        if (event.which === 1) {
-            dispatch(openCell(id));
-            event.target.classList.add('open');
+        if (click === 'left') {
+            open();
+            div.classList.add('open');
             // -- is bomb
             if (mined) {
                 // ---> game loss
@@ -59,19 +71,20 @@ export const Cell = (props) => {
                 // --- has no bombed neighbours 
                 } else if (minedNeighbourCount === 0) {
                     // ----> opens neighbour cells - opens all surrounding cells with no bombed neightbours, including neighbours displaying bombed neighbours
-                    for (let i = 0; i < neighbours; i++) {
+                    for (let i = 0; i < neighbours.length; i++) {
                         let nId = neighbours[i];
-                        dispatch(openCell(nId));
-                        document.getElementById('nId').classList.add('open');
+                        open();
+                        let nDiv = document.getElementById(`${nId}`)
+                        nDiv.classList.add('open');
                         // incomplete 
                     }
                 }
             }
         // - right click  - changes cell state.flagged = true
-        } else if (event.which === 3) {
+        } else if (click === 'right') {
             // -- is not final flag
             // ---> decrement flag count && deactivate click listener
-            dispatch(toggleFlag(id));
+            flag();
             setCellContent(greenFlag);
             setFlagCount(flagCount++)
             if (mined) {
@@ -83,6 +96,7 @@ export const Cell = (props) => {
                 if (correctFlags === mines) {
                     // ----> game won
                     alert('game won')
+                    setGameState('win')
                 // --- all flags not correct
                 } else {
                     // ----> can no longer add flags || flag count dislpays negative
