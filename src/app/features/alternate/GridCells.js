@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import cellSlice from '../cellSlice';
+// import cellSlice from '../cellSlice';
 import { openCell, toggleFlag, selectCells } from './gameSlice';
 import { SingleCell } from './SingleCell';
 

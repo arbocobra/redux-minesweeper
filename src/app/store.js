@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import gridReducer from './features/gridSlice';
-import cellReducer from './features/cellSlice';
+// import gridReducer from './features/gridSlice';
+// import cellReducer from './features/cellSlice';
 import gameReducer from './features/alternate/gameSlice';
 // import activeCellReducer from './features/alternate/activeCellSlice';
 
