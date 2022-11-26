@@ -1,5 +1,15 @@
+export const calcMines = (size, level) => {
+    let square = Math.pow(size, 2);
+    if (level === 'easy') {
+        return Math.ceil(square * 0.12);
+    } else if (level === 'hard') {
+        return Math.ceil(square * 0.21);
+    } else {
+        return Math.ceil(square * 0.16);
+    }
+}
+
 export const makeMineArray = async (info) => {
-    
     const total = Math.pow(info.size, 2);
     info.total = total;
     const mineCount = info.mines;
@@ -13,7 +23,6 @@ export const makeMineArray = async (info) => {
     if (arr.length === mineCount) {
         arr.sort((a, b) => a - b);
         info.mineArray = arr;
-        // console.log(info)
         return info
     } else {
         console.log('I broke...mines')
@@ -43,8 +52,6 @@ export  const makeCellObjs = async (info) => {
         data.push(obj);
     }
     if (data.length === total) {
-        // console.log(info)
-        // console.log(data)
         return [info, data]
     } else {
         console.log('I broke...cells')
@@ -59,7 +66,6 @@ export const findNeighbours = async (responseArray) => {
     const isChecked = [];
     for (let i = 0; i < data.length; i++) {
         const id = data[i].id;
-        // console.log('id: ' + id + '/ size: ' + size)
         const row = data[i].row;
         const column = data[i].column;
         const neighbours = [];
@@ -97,6 +103,7 @@ export const findNeighbours = async (responseArray) => {
         } 
         // end of if checks
         data[i].neighbours = neighbours;
+        data[i].hiddenNeighbours = neighbours;
         isChecked.push(i);
     }
     if (isChecked.length === data.length) {

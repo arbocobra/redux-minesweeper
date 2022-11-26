@@ -6,44 +6,10 @@ import {
   countMinedNeighbours,
 } from '../components/helperFunctions';
 
-// export const cellSlice = createSlice({
-//   name: 'cells',
-//   initialState: {
-//     content: null,
-//   },
-//   reducers: {
-//     createCells: (state, action) => {
-//       const info = action.payload;
-//       makeMineArray(info)
-//       .then(infoWithMineArr => makeCellObjs(infoWithMineArr))
-//       .then(arrOfOrderAndCellData => findNeighbours(arrOfOrderAndCellData))
-//       .then(arrofOrderAndDataWithN => countMinedNeighbours(arrofOrderAndDataWithN))
-//       .then(response => {
-//         console.log(response);
-//         state = {...state, state.content: response}
-//       })
-//     }
-//   }
-// }
-  
-// )
-
-// export const { createCells } = cellSlice.actions;
-// export const selectCells = (state) => state.cells.content;
-// export default cellSlice.reducer;
 
 export const createCells = createAsyncThunk(
   'cells/createCells',
   async (info) => {
-    
-    // makeMineArray(info)
-    //   .then(info => makeCellObjs(info))
-    //   .then(infoData => findNeighbours(infoData))
-    //   .then(infoData => countMinedNeighbours(infoData))
-    //   .then(data => {
-    //     console.log(data)
-    //     return data;
-    //   })
       const mineRespone = await makeMineArray(info);
       const cellResponse = await makeCellObjs(mineRespone);
       const neighbourResponse = await findNeighbours(cellResponse);
