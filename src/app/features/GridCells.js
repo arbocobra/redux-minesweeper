@@ -18,7 +18,8 @@ export const GridCells = (props) => {
     const [loop, setLoop] = useState([false, null]);
     const [reiterateList, setReiterateList] = useState([])
     const [shouldUpdate, setShouldUpdate] = useState([])
-    const [tempList, setTempList] = useState([])
+    const [allNeighbours, setAllNeighbours] = useState([])
+    const [currentNeighbours, setCurrentNeighbours] = useState(null)
 
     const inputCell = async (id, click) => {
         console.log(id)
@@ -28,9 +29,9 @@ export const GridCells = (props) => {
         } else if (click === 3) {
             setActiveCell([cell, 'right'])
         } else {
-            setActiveCell([cell, 'reiterate'])
+            setActiveCell([cell, 'left'])
         }
-        setShouldUpdate(current => [...current, id])
+        setShouldUpdate(current => [...current, 'x'])
     }
 
     useEffect(() => {
@@ -40,7 +41,6 @@ export const GridCells = (props) => {
 
     useEffect(() => {
         if (activeCell) {
-            // console.log('useEffect used: activeCell - A')
             const cell = activeCell[0];
             const click = activeCell[1]
             const id = cell.id
@@ -53,9 +53,11 @@ export const GridCells = (props) => {
                         // const availableNeighbours = cell.neighbours.filter(n => !CELLS[n].opened && !CELLS[n].flagged ? n : null);
                         const availableNeighbours = cell.neighbours.filter(n => !CELLS[n].opened && !CELLS[n].flagged && !reiterateList.includes(n) ? n : null);
                         
-                        setLoop([true, null])
+                        
                         openClick(id, false, availableNeighbours)
+                        setCurrentNeighbours(availableNeighbours)
                     }
+                    setLoop([true, null])
                 }
             }
             if (click === 'right') {
@@ -73,6 +75,7 @@ export const GridCells = (props) => {
                         const availableNeighbours = cell.neighbours.filter(n => !CELLS[n].opened && !CELLS[n].flagged && !reiterateList.includes(n) ? n : null);
 
                         openClick(id, false, availableNeighbours, true);
+
                 }
                 setLoop([true, null])
             }      
@@ -89,19 +92,14 @@ export const GridCells = (props) => {
                 setCELLS(current => current.map((cell, i) => i === id ? { ...cell, content: 'number', opened: true } : cell))
             } else {
                 if (neighbours.length > 0) {
-                    // console.log(neighbours)
-                    setReiterateList(current => {
-                        let combine = [current, neighbours];
-                        return combine.flat();
-                    })
-                    setTempList(current => {
-                        let combine = [current, reiterateList];
-                        return combine.flat();
-                    })
                     
+                    // setReiterateList(current => {
+                    //     let combine = [current, neighbours];
+                    //     return combine.flat();
+                    // })                    
                 } 
                 setCELLS(current => current.map((cell, i) => i === id ? { ...cell, content: 'blank', opened: true } : cell))
-                // setShouldUpdate(current => [...current, 'loop'])
+                
             }
         } 
     }
@@ -116,23 +114,21 @@ export const GridCells = (props) => {
         setCELLS(current => current.map((cell, i) => i === id ? { ...cell, content, flagged: !cell.flagged } : cell))
     }
 
-    // const allNeighbours = [];
-    // const loopOpen = (id, neighbours) => {
-    //     if (!neighbours) {
-    //         allNeighbours.push([id, 'number'])
-    //         // setCELLS(current => current.map((cell, i) => i === id ? { ...cell, content: 'number', opened: true } : cell))
-    //     } else {
-    //         if (neighbours.length > 0) {
-    //             // console.log(neighbours)
-    //             setReiterateList(current => {
-    //                 let combine = [current, neighbours];
-    //                 return combine.flat();
-    //             })
-    //         } 
-    //         setCELLS(current => current.map((cell, i) => i === id ? { ...cell, content: 'blank', opened: true } : cell))
-    //         setShouldUpdate(current => [...current, 'loop'])
-    //     }
-    // }
+    useEffect(() => {
+        console.log('useEffect: currentNeighbours')
+        loopClick();
+        return () => setCurrentNeighbours(null)
+    }, [currentNeighbours])
+
+    const loopClick = () => {
+        if (currentNeighbours) {
+            setAllNeighbours(current => {
+                let combine = [current, currentNeighbours];
+                return combine.flat();
+            })
+        }
+    }
+
 
     useEffect(() => {
         if (!activeCell && loop[0]) {
@@ -146,6 +142,7 @@ export const GridCells = (props) => {
             }
         } 
     },[activeCell])
+
 
     useEffect(() => {
         if (loop[1]) {
