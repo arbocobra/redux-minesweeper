@@ -11,16 +11,15 @@ export const Grid = (props) => {
 
     const [flags, setFlags] = useState(0);
     
-    // const count = flaggedCells.length;
     const gridStyle = styleGrid(size);
 
     const countFlags = (change) => {
         if (change === 'add') {
-            setFlags(current => current++)
+            setFlags(current => current + 1)
         } 
         if (change === 'remove') {
-            setFlags(current => current--)
-        }   
+            setFlags(current => current - 1)
+        } 
     }
 
     useEffect(() => {

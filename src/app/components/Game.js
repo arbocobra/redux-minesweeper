@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { CreateGame } from './CreateGame';
 import { PlayGame } from './PlayGame';
-// import { AltGrid } from '../features/Grid';
 import { WinGame } from './WinGame';
 import { LoseGame } from './LoseGame';
 import { changeGameStatus, selectGame } from '../features/gameSlice';
@@ -39,5 +38,5 @@ export const Game = () => {
         return (
             <LoseGame />
             )
-    }
+    } 
 }
