@@ -4,10 +4,17 @@ import { selectGame } from './gameSlice';
 import { SingleCell } from './SingleCell';
 
 export const GridCells = (props) => {
-    const { countFlags, setGameLoss, setGameWon } = props;
+    const { countFlags, gameWinLoss } = props;
 
     const GAME = useSelector(selectGame);
     const gridSize = GAME.square;
+
+    const testCount = () => {
+        let count = 0;
+        GAME.cells.forEach(cell => cell.mined ? count += 1 : count)
+        console.log(count)
+    }
+    testCount()
 
     const initialState = Array(gridSize).fill({ opened: false, flagged: false, content: '' })
 
@@ -54,6 +61,7 @@ export const GridCells = (props) => {
     const openClick = (id, mined, neighbours, test) => {        
         if (mined) {
             setCELLS(current => current.map((cell, i) => i === id ? { ...cell, content: 'mine', opened: true } : cell))
+            gameWinLoss('loss')
         } else {
             if (!neighbours) {
                 setCELLS(current => current.map((cell, i) => i === id ? { ...cell, content: 'number', opened: true } : cell))
@@ -75,12 +83,13 @@ export const GridCells = (props) => {
             countFlags('add');
             if (isCorrect) {
                 setCorrectFlags(current => current + 1)
+                if (correctFlags === GAME.mines) {
+                    gameWinLoss('win')
+                }
             }
             setCELLS(current => current.map((cell, i) => i === id ? { ...cell, content: 'flag', flagged: !cell.flagged } : cell))
         }
-        if (correctFlags === GAME.mines) {
-            setGameWon(true)
-        }
+        
     }
 
     return (

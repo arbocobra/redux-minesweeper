@@ -6,10 +6,10 @@ import { createCells, selectGame } from '../features/gameSlice';
 import { Grid } from '../features/Grid';
 
 export const PlayGame = (props) => {
-    const {setGameWon, setGameLoss} = props;
+    const {gameWinLoss} = props;
 
     const dispatch = useDispatch();
-    const GAME = useSelector(selectGame);
+    const GAME = useSelector(selectGame);    
 
     const size = GAME.size;
     const mines = GAME.mines;
@@ -21,9 +21,7 @@ export const PlayGame = (props) => {
 
     if (GAME.cells.length !== 0) {
         return (
-            <div id='game' className='game-container'>
-                <Grid size={size} mines={mines} setGameWon={setGameWon} setGameLoss={setGameLoss} />
-            </div>
+            <Grid size={size} mines={mines} gameWinLoss={gameWinLoss} />
         )
     } else { return null}
 }

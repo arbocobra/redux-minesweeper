@@ -49,6 +49,9 @@ const sliceOptions = {
         // },
         changeGameStatus: (state, action) => {
             state.status = action.payload;
+        },
+        resetGame: (state) => {
+            state = initialState;
         }
     },
     extraReducers: (builder) => {
@@ -69,7 +72,7 @@ const sliceOptions = {
 };
 
 export const gameSlice = createSlice(sliceOptions);
-export const { startGame, changeGameStatus } = gameSlice.actions;
+export const { startGame, changeGameStatus, resetGame } = gameSlice.actions;
 export const selectGame = (state) => state.game;
 export const selectCells = (state) => state.game.cells;
 export default gameSlice.reducer;

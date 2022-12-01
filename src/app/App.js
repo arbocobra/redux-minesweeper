@@ -8,10 +8,7 @@ const App = () => {
   return (
         <div className='app'>
           <div className="app-inner">
-            <div className='container'>
-              <h1>Mineweeper - Redux</h1>
-                <Game />
-            </div>
+            <Game />
           </div>
         </div>
       )

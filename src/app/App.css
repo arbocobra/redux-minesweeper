@@ -5,13 +5,15 @@ h1 {
 .app {
     width: 100%;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .app-inner {
     width: 90%;
     height: 90%;
     display: flex;
     flex-flow: column nowrap;
-    margin: 5%;
 }
 .container {
     display: flex;
@@ -103,5 +105,20 @@ h1 {
 .open {
     background-color: #e0e0e0 !important;
 }
+.win-loss-container {
+    z-index: 100;
+    position: absolute;
+    width: 30%;
+    text-align: center;
+    padding: 20px;
+    background-color: rgb(255 255 255 / 50%);
+}
+.win-loss-container.lose {
+    border: 3px solid #FF002D;
+}
+.win-loss-container.win {
+    border: 3px solid #00D896;
+}
+
 
 /* red: #FF002D */
