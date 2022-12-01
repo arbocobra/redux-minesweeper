@@ -2,12 +2,13 @@ import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { CreateGame } from './CreateGame';
-import { AltGrid } from './AltGrid';
-import { Win } from '../../components/Win';
-import { Loss } from '../../components/Loss';
-import { changeGameStatus, selectGame } from './gameSlice';
+import { PlayGame } from './PlayGame';
+// import { AltGrid } from '../features/Grid';
+import { WinGame } from './WinGame';
+import { LoseGame } from './LoseGame';
+import { changeGameStatus, selectGame } from '../features/gameSlice';
 
-export const AltGame = () => {
+export const Game = () => {
     const game = useSelector(selectGame);
     const dispatch = useDispatch()
 
@@ -28,25 +29,15 @@ export const AltGame = () => {
         )
     } else if (game.status === 'play') {
         return (
-            <AltGrid setGameWon={setGameWon} setGameLoss={setGameLoss} />
+            <PlayGame setGameWon={setGameWon} setGameLoss={setGameLoss} />
             )
     } else if (game.status === 'win') {
         return (
-            <Win />
+            <WinGame />
             )        
     } else if (game.status === 'loss') {
         return (
-            <Loss />
+            <LoseGame />
             )
     }
-
-    //     return (
-    //         <>
-    //             <CreateGame />
-    //             <AltGrid />
-    //             <Win />
-    //             <Loss />
-    //         </>
-    // )
-
 }

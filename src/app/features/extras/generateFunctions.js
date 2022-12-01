@@ -40,8 +40,8 @@ export  const makeCellObjs = async (info) => {
             id: i,
             row: Math.floor(i / size),
             column: i % size,
-            opened: false,
-            flagged: false,
+            // opened: false,
+            // flagged: false,
         }
         if(mineArray.includes(i)) {
             obj.mined = true;
@@ -103,7 +103,7 @@ export const findNeighbours = async (responseArray) => {
         } 
         // end of if checks
         data[i].neighbours = neighbours;
-        data[i].hiddenNeighbours = neighbours;
+        // data[i].hiddenNeighbours = neighbours;
         isChecked.push(i);
     }
     if (isChecked.length === data.length) {
@@ -139,3 +139,14 @@ export  const countMinedNeighbours = async (responseArray) => {
             console.log('I broke...count')
         }
   }
+
+export const reduceCells = (array) => {
+    array.reduce((filtered, arr) => {
+        if (arr.opened) {
+          let result = arr.id;
+          filtered.push(result);
+        }
+        return filtered;
+      }, []);
+  }
+  

@@ -5,7 +5,7 @@ export const styleGrid = (i) => {
     }
 }
 
-export const styleCell = (row, column, minedNeighbourCount) => {    
+export const styleCell = (row, column) => {    
     return {
         gridArea: `${row + 1} / ${column + 1} / ${row + 2} / ${column + 2}`,
     }

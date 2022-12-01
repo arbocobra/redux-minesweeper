@@ -1,7 +1,6 @@
 // import React, { useState } from 'react';
 import './App.css';
-// import { Game } from './components/Game'
-import { AltGame } from './features/alternate/AltGame';
+import { Game } from './components/Game';
 // import { CreateGrid } from './components/CreateGrid';
 // import { Grid } from './features/Grid';
 
@@ -11,8 +10,7 @@ const App = () => {
           <div className="app-inner">
             <div className='container'>
               <h1>Mineweeper - Redux</h1>
-                {/* <Game /> */}
-                <AltGame />
+                <Game />
             </div>
           </div>
         </div>
