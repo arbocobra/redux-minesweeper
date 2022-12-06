@@ -5,9 +5,9 @@ import { resetGame } from '../features/gameSlice';
 import flagIcon from '../../images/flag-green.png';
 
 export const WinGame = () => {
-    
+
     const dispatch = useDispatch();
-    const handleSubmit = () => dispatch(resetGame);
+    const handleSubmit = () => dispatch(resetGame());
 
     const flag = <img src={flagIcon} height='24' width='24' />;
 

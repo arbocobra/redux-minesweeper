@@ -15,6 +15,13 @@ export const Game = () => {
     const [gameLoss, setGameLoss] = useState(false);
 
     useEffect(() => {
+        if (gameWon || gameLoss) {
+            setGameWon(false);
+            setGameLoss(false);
+        }
+    }, [game])
+
+    useEffect(() => {
         if (gameWon) {
             dispatch(changeGameStatus('win'))
         }
@@ -57,7 +64,7 @@ export const Game = () => {
 
     if (game.status === 'loading') {
         return (
-            <div className='container'>
+            <div id='container' className='container'>
               <h1>Mineweeper - Redux</h1>
                 <CreateGame />
             </div>
@@ -65,7 +72,7 @@ export const Game = () => {
         )
     } else {
         return (
-            <div className='container'>
+            <div id='container' className='container'>
               <h1>Mineweeper - Redux</h1>
               <PlayGame gameWinLoss={gameWinLoss} />
               { winLossScreen }

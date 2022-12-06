@@ -39,19 +39,11 @@ const sliceOptions = {
             state.status = 'play';
             state.square = Math.pow(action.payload.size, 2);
         },
-        // openCell: (state, action) => {
-        //     const id = action.payload;
-        //     state.cells[id].opened = true;
-        // },
-        // toggleFlag: (state, action) => {
-        //     const id = action.payload;
-        //     state.cells[id].flagged = !state.cells[id].flagged
-        // },
         changeGameStatus: (state, action) => {
             state.status = action.payload;
         },
         resetGame: (state) => {
-            state = initialState;
+            return initialState;
         }
     },
     extraReducers: (builder) => {

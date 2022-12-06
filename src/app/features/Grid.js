@@ -17,6 +17,13 @@ export const Grid = (props) => {
         (change === 'add') ? setFlags(current => current + 1) : setFlags(current => current - 1)
     }
 
+    useEffect(() => {
+        let element = document.getElementById('container');
+        element.oncontextmenu = function(e) {
+            e.preventDefault();
+        }
+    }, [])
+
     return (
         <div id='game' className='game-container'>
             <div id='grid' className='grid-container' style={gridStyle}>

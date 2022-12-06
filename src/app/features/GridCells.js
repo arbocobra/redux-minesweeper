@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useReducer } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectGame } from './gameSlice';
 import { SingleCell } from './SingleCell';
 
@@ -9,90 +9,158 @@ export const GridCells = (props) => {
     const GAME = useSelector(selectGame);
     const gridSize = GAME.square;
 
-    const testCount = () => {
-        let count = 0;
-        GAME.cells.forEach(cell => cell.mined ? count += 1 : count)
-        console.log(count)
-    }
-    testCount()
-
-    const initialState = Array(gridSize).fill({ opened: false, flagged: false, content: '' })
+    const initialState = Array(gridSize).fill({ opened: false, flagged: false })
 
     const [CELLS, setCELLS] = useState(initialState)
-    const [activeCell, setActiveCell] = useState(null)
-    const [correctFlags, setCorrectFlags] = useState(0);
-
-    const inputCell = (id, click) => {
-        let cell = GAME.cells[id];
-        if (click === 1) {
-            setActiveCell([cell, 'left'])
-        } else if (click === 3) {
-            setActiveCell([cell, 'right'])
-        } else {
-            setActiveCell([cell, 'left'])
+    const [cellContent, setCellContent] = useState(null)
+    const [loop, setLoop] = useState(false)
+    const [loopCell, setLoopCell] = useState(null)
+    
+    const selectCell = (id, click) => {
+        const cell = GAME.cells[id]
+        if (click === 0) {
+            setCELLS(current => current.map((c, i) => i === id ? { ...c, opened: true } : c))
+            if (cell.mined) {
+                console.log('mined')
+                setCellContent([id, 'mine'])
+            }
+            else if (cell.minedNeighbourCount > 0) {
+                console.log(cell.minedNeighbourCount)
+                setCellContent([id, 'number'])
+            } else {
+                console.log('blank')
+                setCellContent([id, 'blank'])
+                let result = loopFunc(cell.neighbours)
+                console.log('SELECTCELL LOOP RETURNED')
+                console.log(result)
+                setLoop(result)
+            }
+        }
+        if (click === 2) {
+            if (!cell.flagged) {
+                console.log('flag')
+            } else {
+                console.log('unflag')
+            }
         }
     }
+
+    const loopFunc = (neighbours) => {
+        const neighbourLoop = [...neighbours]
+        // console.log(`neighbourLoop: ${neighbourLoop}`)
+        const loopArray = [];
+        const identifyNeighbours = (id) => {
+            // console.log(`identifyNeighbours: ${id}`)
+            const gameCells = GAME.cells
+            const stateCells = CELLS
+            
+            if (gameCells[id].minedNeighbourCount > 0) {
+                if (!stateCells[id].opened && !stateCells[id].flagged && !loopArray.includes(id)) {
+                    loopArray.push(id)
+                    // console.log(`add ${id} to loopArray`)
+                }
+            } else {
+                // console.log('else')
+                if (!stateCells[id].opened && !stateCells[id].flagged && !loopArray.includes(id)) {
+                    loopArray.push(id)
+                    GAME.cells[id].neighbours.forEach(c => {
+                        if (!stateCells[c].opened && !stateCells[c].flagged && !neighbourLoop.includes(c) && !loopArray.includes(c)) {
+                            // console.log(`add ${c} to neighbours`)
+                            neighbourLoop.push(c)
+                        }
+                    })
+                } 
+            }
+            // console.log(`loopArray: ${loopArray}`)
+        }
+        for (let n of neighbourLoop) {
+            identifyNeighbours(n)
+        }
+        return loopArray;
+    }
+
+    // const selectLoop = (arr) => {
+    //     console.log('selectLoop')
+    //     setLoop(arr)
+    //     // for (let id of arr) {
+    //     //     const cell = GAME.cells[id]
+    //     //     if (cell.minedNeighbourCount > 0) {
+    //     //         setCellContent([id, 'number'])
+    //     //     } else {
+    //     //         setCellContent([id, 'blank'])
+    //     //     }
+    //     // }
+    // }
+
+    // useEffect(() => {
+    //     if (loop.length > 0 && !loopCell) { 
+    //         const update = [...loop]
+    //         const id = update.shift()
+    //         console.log(id)
+    //         const cell = GAME.cells[id]
+    //         setCELLS(current => current.map((c, i) => i === id ? { ...c, opened: true } : c))
+    //         setLoop(update)
+    //         setLoopCell(id)
+    //     }  
+    // }, [loop])
+
+    // useEffect(() => {
+    //     if (loopCell) {
+    //         const cell = GAME.cells[loopCell]
+    //         let content = cell.minedNeighbourCount > 0 ? 'number' : 'blank'
+    //         // setCellContent([loopCell, content])
+    //         console.log(cellContent)
+    //     }
+    //     return () => setLoopCell(null)
+    // }, [loop])
 
     useEffect(() => {
-        if (activeCell) {
-            const cell = activeCell[0];
-            const click = activeCell[1]
-            const id = cell.id
-            if (click === 'left') {
-                if (cell.mined) openClick(id, true)
-                else {
-                    if (cell.minedNeighbourCount > 0) {
-                        openClick(id, false)
-                    } else {
-                        const availableNeighbours = cell.neighbours.filter(n => !CELLS[n].opened && !CELLS[n].flagged ? n : null);
-                        openClick(id, false, availableNeighbours)
-                    }
-                }
+        (async ( ) => {
+            if (loop.length > 0) {
+                const update = [...loop]
+                const id = update.shift()
+                console.log(id)
+                setCELLS(current => current.map((cell, i) => i === id ? { ...cell, opened: true } : cell))
+                setLoop(update)
+                const cell = GAME.cells[id]
+                let content = cell.minedNeighbourCount > 0 ? 'number' : 'blank'
+                setLoop(update)
+                setLoopCell([id, content])
+                // console.log(`cellContent: ${loopCell[0]}, ${loopCell[1]}`)
+                // // setCellContent([loopCell, content])
+                // return () => setCellContent(null)
             }
-            if (click === 'right') {
-                let unFlag = CELLS[id].flagged
-                flagClick(id, unFlag)
-            } 
-        } 
-        return () => setActiveCell(null)
-        
-    }, [activeCell])
+        })() 
+    }, [loop])
 
-    const openClick = (id, mined, neighbours, test) => {        
-        if (mined) {
-            setCELLS(current => current.map((cell, i) => i === id ? { ...cell, content: 'mine', opened: true } : cell))
-            gameWinLoss('loss')
-        } else {
-            if (!neighbours) {
-                setCELLS(current => current.map((cell, i) => i === id ? { ...cell, content: 'number', opened: true } : cell))
-            } else {
-                setCELLS(current => current.map((cell, i) => i === id ? { ...cell, content: 'blank', opened: true } : cell))
+    useEffect(() => {
+        (async ( ) => {
+            if (loopCell) {
+                console.log(`cellContent: ${loopCell[0]}, ${loopCell[1]}`)
+                setCellContent([loopCell[0], loopCell[1]])
+                return () => setLoopCell(null)
             }
-        } 
-    }
+        })() 
+    }, [loopCell])
 
-    const flagClick = (id, hasFlag) => {
-        const isCorrect = GAME.cells[id].mined
-        if (hasFlag) {
-            countFlags('remove');
-            if (isCorrect) {
-                setCorrectFlags(current => current - 1)
-            }
-            setCELLS(current => current.map((cell, i) => i === id ? { ...cell, content: 'unflag', flagged: !cell.flagged } : cell))
-        } else { 
-            countFlags('add');
-            if (isCorrect) {
-                setCorrectFlags(current => current + 1)
-                if (correctFlags === GAME.mines) {
-                    gameWinLoss('win')
-                }
-            }
-            setCELLS(current => current.map((cell, i) => i === id ? { ...cell, content: 'flag', flagged: !cell.flagged } : cell))
-        }
-        
-    }
+
+    // selectCell (id)
+    //  const cell = GAME.cells[id]
+    //  IDENTIFY TYPE
+    // if left
+        // if (cell.mined)
+        // else if (cell.minedNeighbourCount > 0)
+        // else
+        // => UPDATE STATE
+    // if right
+        // flag
+        // unflag
+        // => UPDATE STATE
+
+
+
 
     return (
-        GAME.cells.map(cell => (<SingleCell key={cell.id} cell={cell} inputCell={inputCell} cellContent={CELLS[cell.id].content} />))
+        <SingleCell selectCell={selectCell} stateCells={GAME.cells} gameCells={CELLS} cellContent={cellContent} setCellContent={setCellContent} />
     )
 }

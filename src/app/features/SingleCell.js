@@ -5,49 +5,159 @@ import bombIcon from '../../images/bomb-red.png';
 import flagIcon from '../../images/flag-green.png';
 
 export const SingleCell = (props) => {
-    const { cell, inputCell, cellContent } = props;
-    const [displayContent, setDisplayContent] = useState('');
+    const { selectCell, stateCells, gameCells, cellContent, setCellContent } = props;
 
-    const id = cell.id;
-    const cellStyle = styleCell(cell.row, cell.column);
+    const initialContent = Array(gameCells.length).fill(null)
+    const [displayContent, setDisplayContent] = useState(initialContent);
+    // const [current, setCurrent] = useState(null)
 
     const bomb = <img src={bombIcon} height='20' width='20' />;
     const flag = <img src={flagIcon} height='20' width='20' />;
 
-    useEffect(() => {
-        let element = document.getElementById(id)
-        element.addEventListener('mousedown', handleClick, {once: false});
-        element.oncontextmenu = function(e) {
-            e.preventDefault();
+    const CELLS = stateCells.map((cell, i) => (
+        {
+            id: cell.id,
+            content: displayContent[i],
+            cellStyle: styleCell(cell.row, cell.column)
         }
-    }, []);
+    ))
 
-    const handleClick = (event) => {  
-        inputCell(id, event.which);
+    const handleClick = (event) => {
+        event.preventDefault()
+        let elementId;
+        if (event.target.nodeName === 'IMG') {
+            elementId = event.target.parentElement.id
+        } else {
+            elementId = event.target.id
+        }
+        selectCell(elementId, event.button)
+        // console.log(`handleClick -> inputCell(${elementId}, ${event.button})`)
+        // setCurrent(elementId)
     }
 
-    useEffect(() => { if (cellContent) updateContent() }, [cellContent]);
+    // useEffect(() => {
+    //     if (cellContent && activeCell) {
+    //         setCurrent(loopCell)
+    //     }
+    // }, [loopCell])
 
-    const updateContent = () => {
-        if (cellContent === 'flag') {
-            setDisplayContent(flag);
-            
-        } else if (cellContent === 'unflag') {
-            setDisplayContent('');
+    // useEffect(() => { 
+    //     if (cellContent) { 
+    //         // let id;
+    //         // if (current) {
+    //         //     id = loopCell;
+    //         // } else {
+    //         //     id = current;
+    //         // }
+    //         // console.log(activeCell)
+    //         // console.log(`useEffect [${cellContent}]`)
+    //         // updateContent(activeCell[0].id); 
+    //         }
+    //         // return () => resetCurrent();
+    //     // }
+    // }, [cellContent]);
+
+    // const resetCurrent = () => {
+    //     setCurrent(null)
+    // }
+
+    useEffect(() => {
+        (async ( ) => {
+            if (cellContent) {
+                console.log('useeffect')
+                console.log(cellContent)
+                const id = cellContent[0];
+                const content = cellContent[1]
+                updateContent(id, content)
+            }
+            return () => setCellContent(null)
+        })() 
+    }, [cellContent])
+
+    const updateContent = (id, content) => {
+        const update = [...displayContent]
+        if (content === 'flag') {
+            update[id] = flag
+            setDisplayContent(update)
+        } else if (content === 'unflag') {
+            update[id] = ''
+            setDisplayContent(update);
         } else {
-            document.getElementById(id).classList.add('open');
-            if (cellContent === 'mine') {
-                setDisplayContent(bomb);
-            } else if (cellContent === 'number') {
-                setDisplayContent(cell.minedNeighbourCount);
-            } else if (cellContent === 'blank') {
-                // document.getElementById(id).classList.remove('open');
-                setDisplayContent('');
+            updateDiv(id)
+            if (content === 'mine') {
+                
+                update[id] = bomb
+                setDisplayContent(update);
+            } else if (content === 'number') {
+                
+                update[id] = stateCells[id].minedNeighbourCount
+                setDisplayContent(update);
+            } else if (content === 'blank') {
+                
+                update[id] = ''
+                setDisplayContent(update);
             }
         }
     }
 
+    const updateDiv = (id) => {
+        if (id) {
+            const element = document.getElementById(id)
+            element.classList.add('open');
+        }
+        
+    }
+
     return (
-        <div id={id} className='cell' style={cellStyle}>{displayContent}</div>
+
+        CELLS.map(cell => ( <div id={cell.id} key={cell.id} className='cell' style={cell.cellStyle} onMouseDown={(event) => handleClick(event)}>{cell.content}</div> ))
     )
 }
+
+// export const SingleCell = (props) => {
+//     const { cell, inputCell, cellContent } = props;
+//     const [displayContent, setDisplayContent] = useState('');
+
+//     const id = cell.id;
+//     const cellStyle = styleCell(cell.row, cell.column);
+
+//     const bomb = <img src={bombIcon} height='20' width='20' />;
+//     const flag = <img src={flagIcon} height='20' width='20' />;
+
+//     useEffect(() => {
+//         let element = document.getElementById(id)
+        // element.addEventListener('mousedown', handleClick, {once: false});
+        // element.oncontextmenu = function(e) {
+        //     e.preventDefault();
+        // }
+//     }, []);
+
+    // const handleClick = (event) => {  
+    //     inputCell(id, event.which);
+    // }
+
+//     useEffect(() => { if (cellContent) updateContent() }, [cellContent]);
+
+    // const updateContent = () => {
+    //     if (cellContent === 'flag') {
+    //         setDisplayContent(flag);
+            
+    //     } else if (cellContent === 'unflag') {
+    //         setDisplayContent('');
+    //     } else {
+    //         document.getElementById(id).classList.add('open');
+    //         if (cellContent === 'mine') {
+    //             setDisplayContent(bomb);
+    //         } else if (cellContent === 'number') {
+    //             setDisplayContent(cell.minedNeighbourCount);
+    //         } else if (cellContent === 'blank') {
+    //             // document.getElementById(id).classList.remove('open');
+    //             setDisplayContent('');
+    //         }
+    //     }
+    // }
+
+//     return (
+//         <div id={id} className='cell' style={cellStyle}>{displayContent}</div>
+//     )
+// }

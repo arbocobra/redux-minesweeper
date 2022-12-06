@@ -7,14 +7,14 @@ import bombIcon from '../../images/bomb-red.png';
 export const LoseGame = () => {
 
     const dispatch = useDispatch();
-    const handleSubmit = () => dispatch(resetGame);
+    const handleClick = () => dispatch(resetGame())
 
     const bomb = <img src={bombIcon} height='24' width='24' />;
 
     return (
         <div className="win-loss-container lose">
             <h1>You Lost {bomb}</h1>
-            <div className='submit-button' onClick={() => handleSubmit()}>Play Again?</div>
+            <div className='submit-button' onClick={() => handleClick() }>Play Again?</div>
         </div>
     )
 }
