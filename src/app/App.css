@@ -77,7 +77,7 @@ h1 {
     padding: 5px 0 10px;
     height: 30px;
 }
-.grid-container {
+/* .grid-container {
     display: grid;
     grid-gap: 1px;
     place-items: stretch;
@@ -85,7 +85,7 @@ h1 {
     min-width: 400px;
     background-color: #d0d0d0;
     border: 1px #d0d0d0 solid;
-}
+} */
 .cell {
     min-width: 30px;
     display: flex;
@@ -93,6 +93,8 @@ h1 {
     align-items: center;
     aspect-ratio: 1;
     background-color: #f4f4f4;
+    font-weight: 600;
+    font-family: sans-serif;
     /* color: #f4f4f4; */
 }
 .cell:hover {
@@ -122,3 +124,71 @@ h1 {
 
 
 /* red: #FF002D */
+
+/* ALT */
+.button-row {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.button-init {
+    border: 2px solid #333;
+    background: #fff;
+    height: 30px;
+    min-width: 40px;
+    padding: 5px 7px;
+    margin: 5px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.button-init:hover {
+    background-color: #333;
+    color: #fff;
+}
+.button-init.selected {
+    background-color: #333;
+    color: #fff;
+}
+.title-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.grid-container {
+    display: grid;
+    grid-gap: 1px;
+    place-items: stretch;
+    min-height: 400px;
+    min-width: 400px;
+    background-color: #d0d0d0;
+    border: 1px #d0d0d0 solid;
+}
+span.blue {
+    color: blue;
+}
+span.green {
+    color: green;
+}
+span.red {
+    color: red;
+}
+span.dark-blue {
+    color: darkblue;
+}
+span.maroon {
+    color: maroon;
+}
+span.teal {
+    color: teal;
+}
+span.grey {
+    color: grey;
+}
+span.black {
+    color: black;
+}

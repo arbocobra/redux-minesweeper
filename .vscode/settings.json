@@ -1,8 +1,13 @@
 {
-    "html.completion.attributeDefaultValue": "singlequotes",
-    "prettier.jsxSingleQuote": true,
-    "prettier.singleQuote": true,
-    "javascript.preferences.quoteStyle": "single",
-    "typescript.preferences.quoteStyle": "single",
-    "html.autoCreateQuotes": true
+   "html.completion.attributeDefaultValue": "singlequotes",
+   "prettier.jsxSingleQuote": true,
+   "prettier.singleQuote": true,
+   "javascript.preferences.quoteStyle": "single",
+   "typescript.preferences.quoteStyle": "single",
+   "html.autoCreateQuotes": true,
+   "files.exclude": {
+      "src/app/features": false,
+      "src/app/components": false
+   },
+   "workspace.isHidden": true
 }

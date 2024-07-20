@@ -12,17 +12,25 @@ export const GridCells = (props) => {
     const initialState = Array(gridSize).fill({ opened: false, flagged: false })
 
     const [CELLS, setCELLS] = useState(initialState)
-    const [cellContent, setCellContent] = useState(null)
+    const [cellContent, setCellContent] = useState(undefined)
+
     const [loop, setLoop] = useState(false)
-    const [loopCell, setLoopCell] = useState(null)
+    const [loopCell, setLoopCell] = useState(undefined)
+    // const [clickCell, setClickCell] = useState(undefined)
+
+    const [correctFlags, setCorrectFlags] = useState(0)
     
     const selectCell = (id, click) => {
         const cell = GAME.cells[id]
+        id = Number.parseInt(id)
         if (click === 0) {
-            setCELLS(current => current.map((c, i) => i === id ? { ...c, opened: true } : c))
+            // setClickCell([id, 'left'])
+            setCELLS(current => current.map((cell, i) => i === id ? { ...cell, opened: true } : cell))
+                      
             if (cell.mined) {
                 console.log('mined')
                 setCellContent([id, 'mine'])
+                gameWinLoss('loss')
             }
             else if (cell.minedNeighbourCount > 0) {
                 console.log(cell.minedNeighbourCount)
@@ -37,13 +45,35 @@ export const GridCells = (props) => {
             }
         }
         if (click === 2) {
-            if (!cell.flagged) {
-                console.log('flag')
+            // setClickCell([id, 'right'])
+            const unflag = CELLS[id].flagged
+            const isCorrect = cell.mined;
+            
+            if (unflag) {
+                // console.log('unflag')
+                setCELLS(current => current.map((cell, i) => i === id ? { ...cell, flagged: false } : cell))
+                countFlags('remove');
+                setCellContent([id, 'unflag'])
+                if (isCorrect) {
+                    setCorrectFlags(current => current - 1)
+                }
             } else {
-                console.log('unflag')
+                setCELLS(current => current.map((cell, i) => i === id ? { ...cell, flagged: true } : cell))
+                countFlags('add');
+                setCellContent([id, 'flag'])
+                // console.log('flag')
+                if (isCorrect) {
+                    setCorrectFlags(current => current + 1)
+                }
             }
         }
     }
+
+    useEffect(() => {
+        if (correctFlags === GAME.mines) {
+            gameWinLoss('win')
+        }
+    }, [correctFlags])
 
     const loopFunc = (neighbours) => {
         const neighbourLoop = [...neighbours]
@@ -79,41 +109,6 @@ export const GridCells = (props) => {
         return loopArray;
     }
 
-    // const selectLoop = (arr) => {
-    //     console.log('selectLoop')
-    //     setLoop(arr)
-    //     // for (let id of arr) {
-    //     //     const cell = GAME.cells[id]
-    //     //     if (cell.minedNeighbourCount > 0) {
-    //     //         setCellContent([id, 'number'])
-    //     //     } else {
-    //     //         setCellContent([id, 'blank'])
-    //     //     }
-    //     // }
-    // }
-
-    // useEffect(() => {
-    //     if (loop.length > 0 && !loopCell) { 
-    //         const update = [...loop]
-    //         const id = update.shift()
-    //         console.log(id)
-    //         const cell = GAME.cells[id]
-    //         setCELLS(current => current.map((c, i) => i === id ? { ...c, opened: true } : c))
-    //         setLoop(update)
-    //         setLoopCell(id)
-    //     }  
-    // }, [loop])
-
-    // useEffect(() => {
-    //     if (loopCell) {
-    //         const cell = GAME.cells[loopCell]
-    //         let content = cell.minedNeighbourCount > 0 ? 'number' : 'blank'
-    //         // setCellContent([loopCell, content])
-    //         console.log(cellContent)
-    //     }
-    //     return () => setLoopCell(null)
-    // }, [loop])
-
     useEffect(() => {
         (async ( ) => {
             if (loop.length > 0) {
@@ -138,10 +133,19 @@ export const GridCells = (props) => {
             if (loopCell) {
                 console.log(`cellContent: ${loopCell[0]}, ${loopCell[1]}`)
                 setCellContent([loopCell[0], loopCell[1]])
-                return () => setLoopCell(null)
+                // return () => setLoopCell(null)
+                
             }
+            return () => clearLoop()
         })() 
     }, [loopCell])
+
+    const clearLoop = () => {
+        setLoopCell(null)
+        // setCellContent(null)
+    }
+
+    
 
 
     // selectCell (id)
