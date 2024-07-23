@@ -1,4 +1,4 @@
-import { neighbourTopLeft, neighbourTopCentre, neighbourTopRight, neighbourLeft, neighbourRight, neighbourBottomLeft, neighbourBottomCentre, neighbourBottomRight } from './neighbourFunction';
+import { neighbourTopLeft, neighbourTopCentre, neighbourTopRight, neighbourLeft, neighbourRight, neighbourBottomLeft, neighbourBottomCentre, neighbourBottomRight } from './neighbourFunctions';
 const _ = require('lodash'); 
 
 export const createGridState = (gameState) => {

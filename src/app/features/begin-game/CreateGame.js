@@ -1,42 +1,10 @@
-import React, {useState, useEffect, useRef} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import Grid from './B-Grid';
-import { setLevel, changeRows, changeColumns, resetGame, selectRows, selectColumns, selectLevel } from './A-GameSlice'
-import { resetGrid } from './B-GridSlice';
+import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { selectRows, selectColumns, selectLevel } from './gameSlice'
 
-
-const Game = () => {
-   const [activeGame, setActiveGame] = useState(false)
-   const dispatch = useDispatch()
-
-   const updateGame = (category, value) => {
-      if (category === 'level') dispatch(setLevel(value))
-      else if (category === 'row') dispatch(changeRows(value))
-      else if (category === 'column') dispatch(changeColumns(value))
-   }
-
-   const RESET = () => {
-      dispatch(resetGrid())
-      dispatch(resetGame())
-      setActiveGame(false)
-   }
-   
-   if (!activeGame) {
-      return (
-         <div className='container'>
-            <CreateGame setActiveGame={setActiveGame} updateGame={updateGame} />
-         </div>
-      )
-   } else {
-      return (
-         <div>
-            <Grid RESET={RESET} />
-         </div>
-      )
-   }
-}
-export const CreateGame = (props) => {
+const CreateGame = (props) => {
    const {setActiveGame, updateGame} = props;
+   
    const levelRef = useRef(null)
    const rowRef = useRef(null)
    const columnRef = useRef(null)
@@ -100,4 +68,4 @@ export const CreateGame = (props) => {
    )
 }
 
-export default Game
+export default CreateGame

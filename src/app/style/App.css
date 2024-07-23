@@ -1,0 +1,233 @@
+/* App */
+.app {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.app-inner {
+    width: 100%;
+    padding: 2% 5%;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+/* Begin Game */
+.container {
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+.button-row {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.button-init {
+    border: 2px solid #333;
+    background: #fff;
+    height: 30px;
+    min-width: 40px;
+    padding: 5px 7px;
+    margin: 5px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.button-init:hover {
+    background-color: #333;
+    color: #fff;
+}
+.button-init.selected {
+    background-color: #333;
+    color: #fff;
+}
+.title-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Play Game */
+.game-container {
+    position: relative
+}
+.grid-container {
+    display: grid;
+    grid-gap: 1px;
+    place-items: stretch;
+    min-height: 400px;
+    min-width: 400px;
+    background-color: #d0d0d0;
+    border: 1px #d0d0d0 solid;
+    max-width: calc(90vh - 35px);
+}
+.cell {
+    min-width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1;
+    background-color: #f4f4f4;
+    font-weight: 600;
+    font-family: sans-serif;
+}
+.cell:hover {
+    background-color: #e0e0e0;
+}
+.open {
+    background-color: #e0e0e0 !important;
+}
+.bomb {
+    background-color: #FF002D !important;
+}
+.flag-count {
+    font-size: 20px;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 10px;
+    height: 35px;
+    padding-bottom: 10px;
+}
+
+/* End Game */
+.game-over-container {
+    position: absolute;
+    top: 0;
+    display: flex;
+    width: 100%;
+    max-width: 500px;
+    flex-flow: column nowrap;
+    height: 100%;
+    padding: 10%;
+}
+.game-over {
+    display: flex;
+    flex: 1 1 100%;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    background: rgba(255, 255, 255, 0.7);
+}
+.game-over.lose {
+    border: 4px solid red
+}
+.game-over.win {
+    border: 4px solid green
+}
+
+/* Fonts / Text */
+h1 {
+    font-size: 24px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+span.blue {
+    color: blue;
+}
+span.green {
+    color: green;
+}
+span.red {
+    color: red;
+}
+span.dark-blue {
+    color: darkblue;
+}
+span.maroon {
+    color: maroon;
+}
+span.teal {
+    color: teal;
+}
+span.grey {
+    color: grey;
+}
+span.black {
+    color: black;
+}
+
+/* .createGrid-container {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 60%;
+    height: 50%;
+    border: 2px solid black;
+    justify-content: stretch;
+} */
+/* .createGrid-inner, .grid-title, .grid-size, .grid-difficulty, .grid-submit {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    flex: 3;
+} */
+/* .grid-title, .grid-submit {
+    flex: 2;
+} */
+/* .counter, .select-level {
+    display: flex;
+    flex-flow: row nowrap;
+    font-size: 24px;
+    padding: 10px;
+} */
+/* .level, .submit-button {
+    border: 1px solid black;
+    margin: 0 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+} */
+/* .level:hover, .submit-button:hover {
+    border: 1px solid black;
+    background: black;
+    color: white;
+} */
+/* .level.selected {
+    border: 2px solid black;
+    padding: 4px 9px;
+} */
+/* .size {
+    padding: 5px 10px;
+    cursor: pointer;
+} */
+/* .explanation {
+    font-style: italic;
+    font-size: 14px;
+    line-height: 15px;
+    padding: 5px 0 10px;
+    height: 30px;
+} */
+/* .grid-container {
+    display: grid;
+    grid-gap: 1px;
+    place-items: stretch;
+    min-height: 400px;
+    min-width: 400px;
+    background-color: #d0d0d0;
+    border: 1px #d0d0d0 solid;
+} */
+ /* .win-loss-container {
+    z-index: 100;
+    position: absolute;
+    width: 30%;
+    text-align: center;
+    padding: 20px;
+    background-color: rgb(255 255 255 / 70%);
+}
+.win-loss-container.lose {
+    border: 3px solid #FF002D;
+}
+.win-loss-container.win {
+    border: 3px solid #00D896;
+} */
+ /* .cell.flagged {
+    background-color: #FF002D;
+} */
+

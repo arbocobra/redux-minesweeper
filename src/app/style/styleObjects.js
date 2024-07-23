@@ -2,8 +2,8 @@ export const styleGrid = (r,c) => {
    return {
        gridTemplateColumns: `repeat(${c}, 1fr)`,
        gridTemplateRows: `repeat(${r}, 1fr)`,
-       maxWidth: `${c * 50}px`,
-       maxHeight: `${r * 50}px`,
+    //    maxWidth: `${c * 50}px`,
+    //    maxHeight: `${r * 50}px`,
    }
 }
 

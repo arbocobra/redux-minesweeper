@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-// import gameReducer from './features/gameSlice';
-import gameReducer from './remake/A-GameSlice'
-import gridReducer from './remake/B-GridSlice'
+import gameReducer from './features/begin-game/gameSlice'
+import gridReducer from './features/play-game/gridSlice'
 
 export const store = configureStore({
   reducer: {

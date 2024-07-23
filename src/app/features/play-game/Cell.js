@@ -1,10 +1,10 @@
 import React, {useState, useEffect, useRef, useReducer, useCallback, memo} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { styleCell, styleSpan } from './styleObjects'
-import { openCell, flagCell, openMultiCells } from './B-GridSlice'
-import flagIcon from '../../images/flag-green.png';
-import redBomb from '../../images/bomb-red.png'
-import whiteBomb from '../../images/bomb-white.png'
+import { styleCell, styleSpan } from '../../style/styleObjects'
+import { openCell, flagCell, openMultiCells } from './gridSlice'
+import flagIcon from '../../../images/flag-green.png'
+import redBomb from '../../../images/bomb-red.png'
+import whiteBomb from '../../../images/bomb-white.png'
 
 const Cell = memo(function Cell(props) {
    const { cellState, multiSelect, selectMine, placeFlag, bomb } = props
@@ -17,6 +17,8 @@ const Cell = memo(function Cell(props) {
    const column = Number(id.slice(2,4))
 
    const cellStyle = styleCell(row,column)
+
+   useEffect(() => { console.log(`Cell ${index} rendered`)})
 
    useEffect(() => { 
       if (!firstRender.current) {
@@ -91,12 +93,9 @@ const Cell = memo(function Cell(props) {
       }
    }, [])
 
+   return (<div id={`cell-${index}`} ref={cellRef} className='cell'></div>)
 
-
-   return (<div id={`cell-${index}`} ref={cellRef} className='cell' style={cellStyle} ></div>)
+   // return (<div id={`cell-${index}`} ref={cellRef} className='cell' style={cellStyle} ></div>)
 })
 
 export default Cell
-
-// const onKeyDown = (event) => { console.log(event) }
-// const onKeyDown = useCallback((event) => { console.log(event) }, [])
