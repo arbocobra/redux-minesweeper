@@ -107,6 +107,9 @@ h1 {
 .open {
     background-color: #e0e0e0 !important;
 }
+.bomb {
+    background-color: #FF002D !important;
+}
 .win-loss-container {
     z-index: 100;
     position: absolute;
@@ -191,4 +194,31 @@ span.grey {
 }
 span.black {
     color: black;
+}
+.game-container {
+    position: relative
+}
+.game-over-container {
+    position: absolute;
+    top: 0;
+    display: flex;
+    width: 100%;
+    max-width: 500px;
+    flex-flow: column nowrap;
+    height: 100%;
+    padding: 10%;
+}
+.game-over {
+    display: flex;
+    flex: 1 1 100%;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    background: rgba(255, 255, 255, 0.7);
+}
+.game-over.lose {
+    border: 4px solid red
+}
+.game-over.win {
+    border: 4px solid green
 }

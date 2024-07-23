@@ -1,7 +1,8 @@
 // import React, { useState } from 'react';
 import './App.css';
 // import { Game } from './components/Game';
-import { Game } from './alternate/Game'
+// import { Game } from './alternate/Game'
+import Game from './remake/A-Game';
 // import { CreateGrid } from './components/CreateGrid';
 // import { Grid } from './features/Grid';
 
