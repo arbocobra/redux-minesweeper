@@ -1,29 +1,35 @@
 /* App */
+@import url('https://fonts.googleapis.com/css2?family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 .app {
-    width: 100%;
+    font-family: "Tomorrow", sans-serif;
     height: 100vh;
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-flow: column nowrap;
+    padding: 2rem 1rem;
+    gap: 2rem;
+}
+.header {
+    display: flex;
+    flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-}
-.app-inner {
-    width: 100%;
-    padding: 2% 5%;
-    display: flex;
-    flex-flow: column nowrap;
-}
 
-/* Begin Game */
-.container {
-    display: flex;
-    flex-flow: column nowrap;
-    height: 100%;
-    width: 100%;
-    margin: auto;
-    justify-content: center;
-    align-items: center;
+    gap: 20px;
+    font-size: 50px;
+    font-weight: 700;
+}
+.header > img {
+    height: 50px;
+    width: 50px;
+}
+.title-row {
+    font-size: 30px;
 }
 .button-row {
+    gap: 10px;
     display: flex;
     flex-flow: row wrap;
     width: 100%;
@@ -33,10 +39,9 @@
 .button-init {
     border: 2px solid #333;
     background: #fff;
-    height: 30px;
-    min-width: 40px;
-    padding: 5px 7px;
-    margin: 5px;
+    font-size: 20px;
+    padding: 10px 15px;
+    min-width: 50px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
@@ -47,7 +52,7 @@
     color: #fff;
 }
 .button-init.selected {
-    background-color: #333;
+    background-color: #ff004c;
     color: #fff;
 }
 .title-row {
@@ -56,17 +61,25 @@
     justify-content: center;
     align-items: center;
 }
+.select-container {
+    gap: 20px;
+    flex-flow: column;
+    display: flex;
+}
 
 /* Play Game */
 .game-container {
-    position: relative
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
 }
 .grid-container {
     display: grid;
-    grid-gap: 1px;
+    grid-gap: 2px;
     place-items: stretch;
-    min-height: 400px;
-    min-width: 400px;
+    min-height: 500px;
+    min-width: 500px;
     background-color: #d0d0d0;
     border: 1px #d0d0d0 solid;
     max-width: calc(90vh - 35px);
@@ -124,6 +137,13 @@
 .game-over.win {
     border: 4px solid green
 }
+.cancel-button {
+    font-size: 20px;
+    font-weight: 600;
+}
+.cancel-button:hover {
+    color:#ff004c;
+}
 
 /* Fonts / Text */
 h1 {
@@ -154,80 +174,3 @@ span.grey {
 span.black {
     color: black;
 }
-
-/* .createGrid-container {
-    display: flex;
-    flex-flow: column nowrap;
-    width: 60%;
-    height: 50%;
-    border: 2px solid black;
-    justify-content: stretch;
-} */
-/* .createGrid-inner, .grid-title, .grid-size, .grid-difficulty, .grid-submit {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    flex: 3;
-} */
-/* .grid-title, .grid-submit {
-    flex: 2;
-} */
-/* .counter, .select-level {
-    display: flex;
-    flex-flow: row nowrap;
-    font-size: 24px;
-    padding: 10px;
-} */
-/* .level, .submit-button {
-    border: 1px solid black;
-    margin: 0 10px;
-    padding: 5px 10px;
-    cursor: pointer;
-} */
-/* .level:hover, .submit-button:hover {
-    border: 1px solid black;
-    background: black;
-    color: white;
-} */
-/* .level.selected {
-    border: 2px solid black;
-    padding: 4px 9px;
-} */
-/* .size {
-    padding: 5px 10px;
-    cursor: pointer;
-} */
-/* .explanation {
-    font-style: italic;
-    font-size: 14px;
-    line-height: 15px;
-    padding: 5px 0 10px;
-    height: 30px;
-} */
-/* .grid-container {
-    display: grid;
-    grid-gap: 1px;
-    place-items: stretch;
-    min-height: 400px;
-    min-width: 400px;
-    background-color: #d0d0d0;
-    border: 1px #d0d0d0 solid;
-} */
- /* .win-loss-container {
-    z-index: 100;
-    position: absolute;
-    width: 30%;
-    text-align: center;
-    padding: 20px;
-    background-color: rgb(255 255 255 / 70%);
-}
-.win-loss-container.lose {
-    border: 3px solid #FF002D;
-}
-.win-loss-container.win {
-    border: 3px solid #00D896;
-} */
- /* .cell.flagged {
-    background-color: #FF002D;
-} */
-

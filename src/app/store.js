@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import gameReducer from './features/begin-game/gameSlice'
+import gameReducer from './features/load-game/gameSlice'
 import gridReducer from './features/play-game/gridSlice'
 
-export const store = configureStore({
+export const Store = configureStore({
   reducer: {
     game: gameReducer,
     grid: gridReducer,

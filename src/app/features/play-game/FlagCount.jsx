@@ -1,7 +1,6 @@
-import React, {memo, useState, useEffect, useRef} from 'react';
+import { memo } from 'react';
 import flag from '../../../images/flag-green.png'
 
-// const Cell = memo(function Cell(props) {
 const FlagCount = memo(function FlagCount(props) {
    const { flags, mines } = props
 

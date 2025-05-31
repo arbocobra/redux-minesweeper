@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { selectRows, selectColumns, selectLevel } from './gameSlice'
+import { selectRows, selectColumns, selectLevel } from './gameSlice.js'
 
 const CreateGame = (props) => {
    const {setActiveGame, updateGame} = props;
@@ -32,7 +32,7 @@ const CreateGame = (props) => {
 
    const handleSelect = (e) => {
       const category = e.target.dataset.category
-      const value = parseInt(e.target.dataset.val)
+      const value = e.target.dataset.val
       if (category === 'level') updateGame(category, value)         
       else updateGame(category, parseInt(value))
    }

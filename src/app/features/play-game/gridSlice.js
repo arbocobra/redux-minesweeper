@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createGridState } from '../../functions/helperFunctions';
+import { createGridState } from '../../functions/helperFunctions.js';
 
 const initialState = []
 
@@ -34,7 +34,7 @@ export const gridSlice = createSlice({
          })
          return stateCopy
       },
-      resetGrid: (state) => initialState
+      resetGrid: () => initialState
    }
 })
 

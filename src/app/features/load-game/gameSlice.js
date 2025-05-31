@@ -28,7 +28,7 @@ export const gameSlice = createSlice({
          state.columns = (state.columns + val) < 100 ? state.columns + val : 99;
          state.mines = Math.round((state.columns * state.rows) * state.multiplier)
       },
-      resetGame: (state) => initialState
+      resetGame: () => initialState
    }
 })
 

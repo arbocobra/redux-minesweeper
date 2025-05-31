@@ -1,5 +1,3 @@
-import React, {useState, useEffect, useRef} from 'react';
-
 const GameOver = (props) => {
    const { value, resetGame } = props
    

@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useRef, useReducer, useCallback, memo} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { styleCell, styleSpan } from '../../style/styleObjects'
-import { openCell, flagCell, openMultiCells } from './gridSlice'
+import { useEffect, useRef, useReducer, useCallback, memo } from 'react';
+import { useDispatch } from 'react-redux';
+import { styleCell, styleSpan } from '../../style/styleObjects.js'
+import { openCell, flagCell, openMultiCells } from './gridSlice.js'
 import flagIcon from '../../../images/flag-green.png'
 import redBomb from '../../../images/bomb-red.png'
 import whiteBomb from '../../../images/bomb-white.png'
@@ -17,8 +17,6 @@ const Cell = memo(function Cell(props) {
    const column = Number(id.slice(2,4))
 
    const cellStyle = styleCell(row,column)
-
-   useEffect(() => { console.log(`Cell ${index} rendered`)})
 
    useEffect(() => { 
       if (!firstRender.current) {
@@ -70,17 +68,6 @@ const Cell = memo(function Cell(props) {
       return span
    }
 
-   // const handleClick = (e) => {
-   //    if (e.button <= 1) {
-   //       if (minedNeighbourCount === 0 && !mined) {
-   //          const allNeighbours = multiSelect(cellState)
-   //          dispatch(openMultiCells(allNeighbours))
-   //       } else dispatch(openCell(index))
-   //    } else if (e.button === 2) {
-   //       dispatch(flagCell(index))
-   //    }
-   // }
-
    const handleClick = useCallback((e) => {
       if (e.button <= 1) {
          if (minedNeighbourCount === 0 && !mined) {
@@ -94,8 +81,6 @@ const Cell = memo(function Cell(props) {
    }, [])
 
    return (<div id={`cell-${index}`} ref={cellRef} className='cell'></div>)
-
-   // return (<div id={`cell-${index}`} ref={cellRef} className='cell' style={cellStyle} ></div>)
 })
 
 export default Cell

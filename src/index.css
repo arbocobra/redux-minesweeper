@@ -4,3 +4,8 @@
 body {
     margin: 0;
 }
+#root {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}

@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectGameState } from '../begin-game/gameSlice'
-import { loadGrid, selectGridState, selectStaticGridState } from './gridSlice'
+import { selectGameState } from '../load-game/gameSlice.js'
+import { loadGrid, selectGridState, selectStaticGridState } from './gridSlice.js'
 
-import Cell from './Cell';
-import GameOver from '../end-game/GameOver';
-import FlagCount from './FlagCount';
+import Cell from './Cell.jsx';
+import GameOver from '../end-game/GameOver.jsx';
+import FlagCount from './FlagCount.jsx';
 
-import { batchSelectNeighbours } from '../../functions/helperFunctions';
-import { styleGrid } from '../../style/styleObjects'
+import { batchSelectNeighbours } from '../../functions/helperFunctions.js';
+import { styleGrid } from '../../style/styleObjects.js'
 
 const Grid = (props) => {
    const { RESET } = props
@@ -20,14 +20,10 @@ const Grid = (props) => {
    const [mineExploded, setMineExploded] = useState(false)
    const [gameOver, setGameOver] = useState(false)
 
-   // const flagCount = useRef(0)
    const endValue = useRef(null)
 
    const gameState = useSelector(selectGameState)
-   // const CELLS = useSelector(selectGridState) 
    const CELLS = useSelector(selectGridState)
-
-   useEffect(() => { console.log(`GRID rendered`)})
 
    useEffect(() => { if (mineExploded) endGame('lose') }, [mineExploded])
 
@@ -39,9 +35,6 @@ const Grid = (props) => {
       dispatch(loadGrid(gameState)) 
       document.getElementById('grid').addEventListener('contextmenu', (e) => { e.preventDefault() });
    }, [])
-
-   // const onKeyDown = (event) => { console.log(event) }
-// const onKeyDown = useCallback((event) => { console.log(event) }, [])
 
    const multiSelect = useCallback((cell) => batchSelectNeighbours([], cell.neighbours, CELLS, []), [CELLS])
 
@@ -68,14 +61,13 @@ const Grid = (props) => {
    return (
       <div id='game' className='game-container'>
          <FlagCount flags={flagCount} mines={gameState.mines} />
-         {/* <div>Mines: {flagCount.current} / {gameState.mines}</div> */}
          <div id='grid' className='grid-container' style={gridStyle}>
             { CELLS.map((val,i) => {
                return <Cell key={i} cellState={val} multiSelect={multiSelect} selectMine={selectMine} placeFlag={placeFlag} bomb={val.mined && mineExploded} />
             }) }
          </div>
          { gameOver ? <GameOver value={endValue.current} resetGame={RESET} /> : null }
-         <div onClick={() => endGame('cancel')}>Cancel Game</div>
+         <div className='cancel-button' onClick={() => endGame('cancel')}>Cancel Game</div>
       </div>
    )
 }

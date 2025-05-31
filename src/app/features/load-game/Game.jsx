@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Grid from '../play-game/Grid';
-import { setLevel, changeRows, changeColumns, resetGame } from './gameSlice'
-import { resetGrid } from '../play-game/gridSlice';
-import CreateGame from './CreateGame';
+import Grid from '../play-game/Grid.jsx';
+import { setLevel, changeRows, changeColumns, resetGame } from './gameSlice.js'
+import { resetGrid } from '../play-game/gridSlice.js';
+import CreateGame from './CreateGame.jsx';
 
 const Game = () => {
    const [activeGame, setActiveGame] = useState(false)

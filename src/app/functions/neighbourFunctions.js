@@ -1,3 +1,4 @@
+
 export const neighbourTopLeft = (cell) => {
    const { index, rowIndex, columnIndex, rowCount, columnCount, rowMax, columnMax } = cell
    if (rowIndex > 0 && columnIndex > 0) return (index - 1) - columnCount

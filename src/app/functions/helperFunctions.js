@@ -1,5 +1,5 @@
 import { neighbourTopLeft, neighbourTopCentre, neighbourTopRight, neighbourLeft, neighbourRight, neighbourBottomLeft, neighbourBottomCentre, neighbourBottomRight } from './neighbourFunctions';
-const _ = require('lodash'); 
+import _ from 'lodash';
 
 export const createGridState = (gameState) => {
    let [rows, columns, mineCount] = [gameState.rows, gameState.columns, gameState.mines];
@@ -61,26 +61,14 @@ export const batchSelectNeighbours = (arrayIn, arrayOut, allCells, coll) => {
    let collection = coll
    collection.push(arrayIn)
    collection = cleanArray(collection, [])
-   arrayOut = _.difference(arrayOut, collection)
+   // arrayOut = _.difference(arrayOut, collection)
+   arrayOut = arrayOut.filter(x => !collection.includes(x))
    if (arrayOut.length > 0) {
       let recurValues = compareFunc(arrayOut, allCells, collection)
       return batchSelectNeighbours(...recurValues)
    }
    return collection
 }
-
-// export const batchSelectNeighbours = (arrayIn, arrayOut, allCells, coll) => {
-//    let collection = coll
-//    collection.push(arrayIn)
-//    collection = cleanArray(collection, [])
-//    arrayOut = _.difference(arrayOut, collection)
-//    if (arrayOut.length > 0) {
-//       return compareFunc(arrayOut, allCells, collection)
-//    } 
-//    console.log('returning...')
-//    console.log(collection)
-//    return collection
-// }
 
 const compareFunc = (arr, allCells, coll) => {
    let arrayIn = []
@@ -93,7 +81,6 @@ const compareFunc = (arr, allCells, coll) => {
       }
    });
    let cleanArrayOut = cleanArray(arrayOut, arrayIn)
-   // batchSelectNeighbours(arrayIn, cleanArrayOut, allCells, coll)
    return [arrayIn, cleanArrayOut, allCells, coll]
 }
    
@@ -101,6 +88,7 @@ const cleanArray = (arr1, arr2) => {
    let flat = arr1.flat()
    let sorted = flat.sort((a,b) => a - b)
    let unique = _.uniq(sorted)
+   // let unique = [...new Set(sorted)]
    let notNull = _.pull(unique, null)
    let final = _.difference(notNull, arr2)
    return final
