@@ -1,3 +1,3 @@
-# REACT/REDUX practice project
-
-this wasn't supposed to be so hard...
+# Redux Minesweeper
+## Built from scratch
+### Hey, it's more complicated than tic-tac-toe...)
