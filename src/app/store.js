@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import gridReducer from './features/gridSlice';
-import cellReducer from './features/cellSlice';
+import gameReducer from './features/load-game/gameSlice'
+import gridReducer from './features/play-game/gridSlice'
 
-export const store = configureStore({
+export const Store = configureStore({
   reducer: {
+    game: gameReducer,
     grid: gridReducer,
-    cells: cellReducer
   },
 });
