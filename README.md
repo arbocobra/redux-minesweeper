@@ -1,3 +1,4 @@
 # Redux Minesweeper
 ## Built from scratch
-### Hey, it's more complicated than tic-tac-toe...)
+### Playable [here](https://arbocobra.github.io/redux-minesweeper/)
+#### *(Hey, it's more complicated than tic-tac-toe...)*
